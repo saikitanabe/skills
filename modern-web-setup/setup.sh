@@ -34,6 +34,14 @@ pnpm create vite@latest "$PROJECT_NAME" --template react-ts
 
 cd "$PROJECT_NAME" || exit
 
+# 1.5 Configure Mise
+echo "🛠️ Configuring mise runtime..."
+cat <<EOF > .mise.toml
+[tools]
+node = "22"
+pnpm = "10"
+EOF
+
 # 2. Install Tailwind v4 dependencies
 echo "📦 Installing Tailwind CSS v4 and Vite plugin..."
 pnpm add tailwindcss @tailwindcss/vite
@@ -51,7 +59,7 @@ export default defineConfig({
   build: {
     cssMinify: false
   }
-  })
+})
 EOF
 
 # 4. Configure CSS
@@ -61,13 +69,13 @@ echo '@import "tailwindcss";' > src/index.css
 # 5. Initialize Git and copy .gitignore
 echo "📂 Initializing Git..."
 git init
-cp "../.agents/skills/modern-web-setup/templates/.gitignore.tmpl" .gitignore
+cp "../templates/.gitignore.tmpl" .gitignore
 
 # 6. Optional: VSCode Settings
 if [ "$USE_VSCODE" = true ]; then
   echo "🛠️ Setting up VSCode settings..."
   mkdir -p .vscode
-  cp "../.agents/skills/modern-web-setup/templates/vscode/settings.json.tmpl" .vscode/settings.json
+  cp "../templates/vscode/settings.json.tmpl" .vscode/settings.json
 fi
 
 # 7. Optional: shadcn/ui
